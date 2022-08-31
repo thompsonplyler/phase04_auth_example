@@ -1,0 +1,2 @@
+class CastMembersController < ApplicationController
+end

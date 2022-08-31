@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  genre: MyString
+  description: MyText
+  budget: 1.5
+  image: MyString
+  director: MyString
+  ongoing: false
+
+two:
+  title: MyString
+  genre: MyString
+  description: MyText
+  budget: 1.5
+  image: MyString
+  director: MyString
+  ongoing: false
