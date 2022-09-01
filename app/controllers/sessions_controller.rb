@@ -10,6 +10,16 @@ class SessionsController < ApplicationController
     end
   end
 
+  def index
+    if session[:user_id]
+      session[:session_hello]  ||= "World"
+      cookies[:session_hello]  ||= "World"
+      render json: {session: session, cookies: cookies.to_hash}
+    else
+      render json: {message: "No active session."}
+    end
+  end
+
   def destroy
     session.delete(:user_id)
   end

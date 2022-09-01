@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { GiSkeletonInside } from "react-icons/gi";
 import { useHistory } from "react-router-dom";
 import { Form } from "../styled/Form";
 
-function Login({ setId }) {
+function Login({ setUser }) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -29,8 +30,8 @@ function Login({ setId }) {
         console.dir("response to observe cookies:", res);
         res.json().then((user) => {
           console.log("User information:", user);
-          localStorage.setItem("user", JSON.stringify(user));
-          setId(user.id);
+          setUser(user);
+
           history.push(`/users/${user.id}`);
         });
       } else {

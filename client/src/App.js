@@ -15,6 +15,7 @@ function App() {
   const [productions, setProductions] = useState([]);
   const [errors, setErrors] = useState(false);
   const [cart, setCart] = useState([]);
+  const [user, setUser] = useState([]);
   const [id, setId] = useState(1);
 
   useEffect(() => {
@@ -26,6 +27,31 @@ function App() {
       }
     });
   }, []);
+
+  // handling logged in user and session
+  useEffect(() => {
+    setId(user.id);
+    getUser();
+    allSessions();
+  }, [user]);
+
+  async function getUser() {
+    let response = await fetch("http://localhost:3000/me");
+    response = await response.json();
+    console.log("get user: ", { response });
+  }
+
+  async function allSessions() {
+    let response = await fetch("http://localhost:3000/sessions");
+    response = await response.json();
+    console.log("Sessions: ", { response }, []);
+    setSessionStorage(response);
+  }
+
+  async function setSessionStorage(data) {
+    console.log("Session data to store:", data);
+    window.sessionStorage.setItem("user_id", JSON.stringify(data));
+  }
 
   const addProduction = (production) =>
     setProductions((current) => [...current, production]);
@@ -76,7 +102,7 @@ function App() {
         </Route>
 
         <Route path="/login">
-          <Login setId={setId} />
+          <Login setId={setId} setUser={setUser} />
         </Route>
 
         <Route exact path="/">

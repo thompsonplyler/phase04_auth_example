@@ -28,7 +28,7 @@ function UserPage() {
 
   const handleClick = async () => {
     let response = await fetch(`/logout`, { method: "delete" });
-    response = await response.json();
+    window.sessionStorage.clear();
     history.push(`/`);
   };
 
