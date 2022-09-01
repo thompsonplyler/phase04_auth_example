@@ -6,4 +6,5 @@ class TicketSerializer < ActiveModel::Serializer
   def production
     {title:object.production.title}
   end 
+
 end
