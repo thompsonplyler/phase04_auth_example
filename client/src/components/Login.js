@@ -13,31 +13,31 @@ function Login({ setUser }) {
 
   const { username, password } = formData;
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
     const user = {
       username,
       password,
     };
+    try {
+      let response = await fetch("/login", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
 
-    fetch(`/login`, {
-      method: "POST",
-      credentials: "same-origin",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user),
-    }).then((res) => {
-      if (res.ok) {
-        console.dir("response to observe cookies:", res);
-        res.json().then((user) => {
-          console.log("User information:", user);
-          setUser(user);
-
-          history.push(`/users/${user.id}`);
-        });
-      } else {
-        res.json().then((json) => setErrors(Object.entries(json.errors)));
-      }
-    });
+      response = await response.json();
+      console.log(response);
+      setUser(response.user);
+      console.log("Response is...", response.session.session_id);
+      window.sessionStorage.setItem("user_id", response.session.session_id);
+      history.push(`/users/${user.id}`);
+    } catch (response) {
+      console.log({ response });
+      response.json().then((json) => setErrors(Object.entries(json.errors)));
+    }
   }
 
   const handleChange = (e) => {

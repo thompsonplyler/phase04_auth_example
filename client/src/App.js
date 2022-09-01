@@ -30,15 +30,19 @@ function App() {
 
   // handling logged in user and session
   useEffect(() => {
-    setId(user.id);
     getUser();
-    allSessions();
+    setId(user.id);
   }, [user]);
+
+  useEffect(() => {
+    if (sessionStorage.user_id) {
+    }
+  });
 
   async function getUser() {
     let response = await fetch("http://localhost:3000/me");
     response = await response.json();
-    console.log("get user: ", { response });
+    console.log("Get logged in user: ", { response });
   }
 
   async function allSessions() {

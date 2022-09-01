@@ -12,6 +12,7 @@ class UsersController < ApplicationController
 
     def show
         if current_user
+            byebug
           render json: current_user, status: :ok
         else
           render json: { error: 'No active session' }, status: :unauthorized

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import Session from "react-session-api";
 
 function UserPage() {
   const [user, setUser] = useState();
@@ -10,10 +9,8 @@ function UserPage() {
 
   const params = useParams();
   const { id } = params;
+
   useEffect(() => {
-    Session.onSet(() => {
-      console.log("test");
-    });
     fetch(`/users/${id}`).then((res) => {
       if (res.ok) {
         res.json().then((user) => {
@@ -34,6 +31,7 @@ function UserPage() {
 
   if (loading) return <h1>Loading</h1>;
   if (errors) return <h1>{errors}</h1>;
+
   return (
     <div>
       <h1>{user.username}</h1>
