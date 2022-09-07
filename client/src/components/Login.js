@@ -19,25 +19,18 @@ function Login({ setUser }) {
       username,
       password,
     };
-    try {
-      let response = await fetch("/login", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
+    let response = await fetch("/login", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
 
-      response = await response.json();
-      console.log(response);
-      setUser(response.user);
-      console.log("Response is...", response.session.session_id);
-      window.sessionStorage.setItem("user_id", response.session.session_id);
-      history.push(`/users/${user.id}`);
-    } catch (response) {
-      console.log({ response });
-      response.json().then((json) => setErrors(Object.entries(json.errors)));
-    }
+    response = await response.json();
+    console.log(response);
+    setUser(response.user);
+    history.push(`/users/${user.id}`);
   }
 
   const handleChange = (e) => {

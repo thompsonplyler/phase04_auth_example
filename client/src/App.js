@@ -32,6 +32,7 @@ function App() {
   useEffect(() => {
     getUser();
     setId(user.id);
+    console.log("ID: ", user.id);
   }, [user]);
 
   useEffect(() => {
@@ -40,13 +41,13 @@ function App() {
   });
 
   async function getUser() {
-    let response = await fetch("http://localhost:3000/me");
+    let response = await fetch("/me");
     response = await response.json();
     console.log("Get logged in user: ", { response });
   }
 
   async function allSessions() {
-    let response = await fetch("http://localhost:3000/sessions");
+    let response = await fetch("/sessions");
     response = await response.json();
     console.log("Sessions: ", { response }, []);
     setSessionStorage(response);
